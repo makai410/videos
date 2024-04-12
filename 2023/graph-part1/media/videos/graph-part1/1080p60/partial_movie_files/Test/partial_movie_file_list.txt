@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/4074596168_2098852999_3358225286.mp4'
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/2326188104_1704852926_2390368108.mp4'
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/2326188104_40271779_636275322.mp4'
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/2326188104_668855079_426740514.mp4'
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/2326188104_1704852926_838932490.mp4'
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/2326188104_3917193579_4047090881.mp4'
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/2326188104_1704852926_4212935104.mp4'
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/2326188104_2171602360_3819204449.mp4'
+file 'file:H:/videos/2023/graph-part1/media/videos/graph-part1/1080p60/partial_movie_files/Test/2326188104_1704852926_2240838718.mp4'
