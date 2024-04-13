@@ -58,7 +58,7 @@ class Intro(Scene):
             weight=HEAVY
         )
         subject2 = Text(
-            text='Hadamard不等式',
+            text='Hermite-Hadamard不等式',
             color=TEXT_COLOR,
             font=DEF_FONT,
             weight=HEAVY
@@ -83,20 +83,71 @@ class ExampleIntro(Scene):
     def construct(self):
         self.camera.background_color = BACKGROUND_COLOR
         title = Text(
-            text='2020·天津卷 P20',
+            text='[2020·天津卷 P20]',
             color=GRAY_C,
             font=DEF_FONT,
             weight=HEAVY,
-            font_size=24
-        ).move_to(UP * 3 + LEFT * 5)
+            font_size=28
+        ).move_to(UP * 3 + LEFT * 4.5)
         
-        tex = Tex(
-            r'$f(x)=x^3 + k\ln x$  $(k \in R)$, $f^\prime (x)$为$f(x)$的导数',
-            tex_template=TexTemplateLibrary.ctex,
-            font_size=42
-        ).move_to(UP * 2)
+        t1 = Text(
+            text='已知函数',
+            color=TEXT_COLOR,
+            font=DEF_FONT,
+            weight=HEAVY,
+            font_size=32
+        ).move_to(UP * 2).align_to(title, LEFT)
+        
+        tex1 = MathTex(
+            'f(x)=x^3+k\ln x (k \in R) , f^\prime (x)'
+        ).move_to(UP * 2).align_to(t1.get_right())
+
+        t2 = Text(
+            text='为',
+            color=TEXT_COLOR,
+            font=DEF_FONT,
+            weight=HEAVY,
+            font_size=32
+        ).move_to(UP * 2).align_to(tex1.get_right())
+        
+        tex2 = MathTex('f(x)').move_to(UP * 2).align_to(t2.get_right())
+        
+        t2 = Text(
+            text='的导函数',
+            color=TEXT_COLOR,
+            font=DEF_FONT,
+            weight=HEAVY,
+            font_size=32
+        ).move_to(UP * 2).align_to(tex2.get_right())
+        vg1 = VGroup(t1, tex1, t2, tex2, t2)
         self.play(
             Create(title),
-            Create(tex)
+            Create(vg1)
+        )
+        self.wait()
+
+class CoordProve(Scene):
+    def construct(self):
+        # 绘制交点，参考：https://discord.com/channels/581738731934056449/1216636172277776435
+        self.camera.background_color = BACKGROUND_COLOR
+        def f(x):
+            return (3*x**2+53/x)/16
+
+        def t(x):
+            return x+2
+        axes = Axes(x_range=[-1, 8, 1], y_range=[-1, 10, 1], x_length=9, y_length=7)
+        func = axes.plot(lambda x: (3*x**2+53/x)/16,x_range=[1, 7], color=BLUE)
+        linear = axes.plot(lambda x: x+2, x_range=[1, 7])
+        intersection = Intersection(func, linear, color=GREEN, fill_opacity=1)
+        # lines = axes.get_vertical_lines_to_graph(
+        #     func, x_range=[0, 4], num_lines=30, color=BLUE
+        # )
+        # creates the T_label
+        # t_label = axes.get_T_label(x_val=4, graph=func, label=Tex("x-value"))
+        self.play(
+            Create(axes),
+            Create(func),
+            Create(linear),
+            Create(intersection)
         )
         self.wait()
