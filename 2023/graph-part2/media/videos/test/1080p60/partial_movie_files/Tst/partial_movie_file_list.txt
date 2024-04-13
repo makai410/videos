@@ -1,7 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:H:/videos/2023/graph-part2/media/videos/test/1080p60/partial_movie_files/Tst/3977891868_174054357_223132457.mp4'
-file 'file:H:/videos/2023/graph-part2/media/videos/test/1080p60/partial_movie_files/Tst/2852726489_1704852926_3140311465.mp4'
-file 'file:H:/videos/2023/graph-part2/media/videos/test/1080p60/partial_movie_files/Tst/2852726489_3909745030_1785009326.mp4'
-file 'file:H:/videos/2023/graph-part2/media/videos/test/1080p60/partial_movie_files/Tst/2852726489_1704852926_2534536767.mp4'
-file 'file:H:/videos/2023/graph-part2/media/videos/test/1080p60/partial_movie_files/Tst/2852726489_1649116468_916082016.mp4'
-file 'file:H:/videos/2023/graph-part2/media/videos/test/1080p60/partial_movie_files/Tst/2852726489_1704852926_4044336985.mp4'
