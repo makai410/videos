@@ -100,7 +100,7 @@ class ExampleIntro(Scene):
         
         tex1 = MathTex(
             'f(x)=x^3+k\ln x (k \in R) , f^\prime (x)'
-        ).move_to(UP * 2).align_to(t1.get_right())
+        ).move_to(t1.get_right(), LEFT)
 
         t2 = Text(
             text='为',
@@ -108,18 +108,18 @@ class ExampleIntro(Scene):
             font=DEF_FONT,
             weight=HEAVY,
             font_size=32
-        ).move_to(UP * 2).align_to(tex1.get_right())
+        ).move_to(tex1.get_right(), LEFT)
         
-        tex2 = MathTex('f(x)').move_to(UP * 2).align_to(t2.get_right())
+        tex2 = MathTex('f(x)').move_to(UP * 2).move_to(t2.get_right(), LEFT)
         
-        t2 = Text(
+        t3 = Text(
             text='的导函数',
             color=TEXT_COLOR,
             font=DEF_FONT,
             weight=HEAVY,
             font_size=32
-        ).move_to(UP * 2).align_to(tex2.get_right())
-        vg1 = VGroup(t1, tex1, t2, tex2, t2)
+        ).move_to(tex2.get_right(), LEFT)
+        vg1 = VGroup(t1, tex1, t2, tex2, t3)
         self.play(
             Create(title),
             Create(vg1)
