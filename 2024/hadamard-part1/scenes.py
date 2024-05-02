@@ -126,6 +126,7 @@ class ExampleIntro(Scene):
         )
         self.wait()
 
+from scipy.optimize import root_scalar
 class CoordProve(Scene):
     def construct(self):
         # 绘制交点，参考：https://discord.com/channels/581738731934056449/1216636172277776435
@@ -135,19 +136,107 @@ class CoordProve(Scene):
 
         def t(x):
             return x+2
+        
+        def F(x):
+            return (x**3+53*np.log(x)) / 16
+
         axes = Axes(x_range=[-1, 8, 1], y_range=[-1, 10, 1], x_length=9, y_length=7)
-        func = axes.plot(lambda x: (3*x**2+53/x)/16,x_range=[1, 7], color=BLUE)
-        linear = axes.plot(lambda x: x+2, x_range=[1, 7])
-        intersection = Intersection(func, linear, color=GREEN, fill_opacity=1)
-        # lines = axes.get_vertical_lines_to_graph(
-        #     func, x_range=[0, 4], num_lines=30, color=BLUE
-        # )
-        # creates the T_label
-        # t_label = axes.get_T_label(x_val=4, graph=func, label=Tex("x-value"))
+        func = axes.plot(lambda x: (3*x**2+53/x)/16,x_range=[1, 7], color=DEF_GREEN)
+        linear = axes.plot(lambda x: x+2, x_range=[1, 7], color=TEXT_COLOR)
+        
+        dots = VGroup()
+        def dotUpdater(mobj):
+            roots = []
+            for x0 in np.arange(1, 7, 0.1):
+                root = root_scalar(lambda x: f(x)-t(x), x0 = x0, method = 'newton')
+                if root.converged and root.root > 0:
+                    roots.append(root.root)
+            roots = np.unique(np.round(roots,2))
+            grp = VGroup(
+                *[Dot().set_color(DEF_GREEN).move_to(axes.c2p(root, t(root))) for root in roots]
+            )
+            grp.add(Text(
+                    text='A',
+                    color=TEXT_COLOR,
+                    font=DEF_FONT,
+                    weight=BOLD,
+                    font_size=30
+                ).move_to(axes.c2p(roots[0], t(roots[0])), DR)
+            )
+            grp.add(Text(
+                    text='B',
+                    color=TEXT_COLOR,
+                    font=DEF_FONT,
+                    weight=BOLD,
+                    font_size=30
+                ).move_to(axes.c2p(roots[1], t(roots[1])), DR)
+            )
+            mobj.become(grp)
+        dots.add_updater(dotUpdater)
         self.play(
             Create(axes),
             Create(func),
             Create(linear),
-            Create(intersection)
+            Create(dots)
+        )
+        self.wait()
+        roots = [1.14, 6.55]
+        
+        x1 = np.round((roots[0] + roots[1]) / 2,2)
+        dC = Dot().set_color(DEF_GREEN).move_to(axes.c2p(x1, t(x1)))
+        lbC = Text(
+            text='C',
+            color=TEXT_COLOR,
+            font=DEF_FONT,
+            weight=BOLD,
+            font_size=30
+        ).move_to(axes.c2p(x1, t(x1)), DR)
+        self.play(
+            Create(dC),
+            Create(lbC)
+        )
+        self.wait()
+        
+        dD = Dot().set_color(DEF_GREEN).move_to(axes.c2p(x1, np.round(f(x1), 2)))
+        lbD = Text(
+            text='D',
+            color=TEXT_COLOR,
+            font=DEF_FONT,
+            weight=BOLD,
+            font_size=30
+        ).move_to(axes.c2p(x1, np.round(f(x1), 2)), DR)
+        self.play(
+            Create(dD),
+            Create(lbD)
+        )
+        self.wait()
+        
+        dtemp1 = Dot().move_to(axes.c2p(roots[0], 0)).set_color(DEF_GREEN)
+        dtemp2 = Dot().move_to(axes.c2p(roots[1], 0)).set_color(DEF_GREEN)
+        linA = Line(dots[0], dtemp1).set_color(DEF_GREEN)
+        linB = Line(dots[1], dtemp2).set_color(DEF_GREEN)
+        lines = axes.get_vertical_lines_to_graph(
+            func, x_range=[roots[0], roots[1]], num_lines=30, color=DEF_GREEN
+        )
+        self.play(
+            Create(dtemp1),
+            Create(dtemp2),
+            Create(linA),
+            Create(linB),
+            Create(lines)
+        )
+        self.wait()
+        yE = np.round((F(roots[1]) - F(roots[0])) / (roots[1] - roots[0]), 2)
+        dE = Dot().set_color(DEF_GREEN).move_to(axes.c2p(x1, yE))
+        lbE = Text(
+            text='E',
+            color=TEXT_COLOR,
+            font=DEF_FONT,
+            weight=BOLD,
+            font_size=30
+        ).move_to(axes.c2p(x1, yE), DR)
+        self.play(
+            Create(dE),
+            Create(lbE)
         )
         self.wait()
